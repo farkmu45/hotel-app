@@ -12,17 +12,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Customer::factory(10)->create();
-        \App\Models\RoomType::factory(3)->create();
-        \App\Models\Dish::factory(3)->create();
+        \App\Models\Customer::factory(20)->create();
 
-        \App\Models\LaundryType::insert([
-            'name' => 'Regular',
-            'price' => 10000,
-        ], [
-            'name' => 'Express',
-            'price' => 20000,
-        ]);
+        $this->call(RoomTypeSeeder::class);
+
+        $this->call(LaundryTypeSeeder::class);
+
+        $this->call(DishSeeder::class);
+
+        $this->call(RoomSeeder::class);
 
         \App\Models\Admin::factory()->create([
             'name' => 'Test User',
