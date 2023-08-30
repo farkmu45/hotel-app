@@ -52,7 +52,11 @@ class RoomResource extends Resource
                 TextColumn::make('roomType.rates')
                     ->sortable()
                     ->label('Tarif')
-                    ->money('IDR'),
+                    ->numeric(
+                        decimalPlaces: 0,
+                        decimalSeparator: '.',
+                        thousandsSeparator: ',',
+                    ),
 
             ])
             ->actions([
