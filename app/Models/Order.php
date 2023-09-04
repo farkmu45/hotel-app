@@ -28,7 +28,7 @@ class Order extends Model
 
     protected static function booted()
     {
-        static::creating(fn (Order $order) => $order->code = 'O' . random_int(100000, 999999));
+        static::creating(fn (Order $order) => $order->code = 'O'.random_int(100000, 999999));
 
         static::saved(function (Order $order) {
             if ($order->check_in) {

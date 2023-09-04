@@ -89,7 +89,7 @@ class HotelAverageDailyRateChart extends ApexChartWidget
                     ],
                 ],
             ],
-            'colors' => ['#f59e0b']
+            'colors' => ['#f59e0b'],
         ];
     }
 }
