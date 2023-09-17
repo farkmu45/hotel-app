@@ -20,6 +20,6 @@ class Customer extends Model
 
     public function activeOrder(): Order
     {
-        return $this->orders()->where('check_in', false)->first();
+        return $this->orders()->where('check_out', null)->first();
     }
 }
