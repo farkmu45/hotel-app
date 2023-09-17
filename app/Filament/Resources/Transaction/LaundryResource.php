@@ -109,6 +109,11 @@ class LaundryResource extends Resource
                     ->label('Berat'),
                 TextColumn::make('laundryType.price')
                     ->sortable()
+                    ->numeric(
+                        decimalPlaces: 0,
+                        decimalSeparator: '.',
+                        thousandsSeparator: ',',
+                    )
                     ->label('Total harga'),
             ])
             ->filters([

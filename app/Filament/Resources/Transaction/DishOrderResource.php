@@ -117,6 +117,11 @@ class DishOrderResource extends Resource
                 TextColumn::make('items_sum_price')
                     ->sortable()
                     ->label('Total')
+                    ->numeric(
+                        decimalPlaces: 0,
+                        decimalSeparator: '.',
+                        thousandsSeparator: ',',
+                    )
                     ->sum('items', 'price'),
             ])
             ->filters([
