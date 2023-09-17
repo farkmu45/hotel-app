@@ -16,9 +16,9 @@ class DishOrder extends Model
         static::created(fn (DishOrder $dishOrder) => $dishOrder->transaction()->create());
 
         static::saved(function (DishOrder $dishOrder) {
-            $total = $dishOrder->items->sum('price');
+            $total = $dishOrder->items()->sum('price');
             $dishOrder->price = $total;
-            $dishOrder->save();
+            $dishOrder->saveQuietly();
         });
     }
 
