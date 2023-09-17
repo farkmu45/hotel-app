@@ -65,9 +65,9 @@ class DishOrderResource extends Resource
                                         titleAttribute: 'name'
                                     )
                                     ->label('Makanan / Minuman')
-                                    ->afterStateUpdated(function (string $state, Set $set) {
+                                    ->afterStateUpdated(function (string $state, Set $set, Get $get) {
                                         $dish = Dish::find($state);
-                                        $price = $dish->price * $state;
+                                        $price = $dish->price * $get('qty');
                                         $set('price_per_item', $dish->price);
                                         $set('price', $price);
                                     })
