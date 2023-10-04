@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MetricController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('hotel-occupancy-rate', [MetricController::class, 'hotelOccupancyRate']);
 Route::get('hotel-average-daily-rate', [MetricController::class, 'hotelAverageDailyRate']);
 Route::get('revenue-per-available-room', [MetricController::class, 'revenuePerAvailableRoom']);
+
+Route::get('master/customers', [MasterController::class, 'getCustomers']);
+Route::get('master/dishes', [MasterController::class, 'getDishes']);
+Route::get('master/laundry-types', [MasterController::class, 'getLaundryTypes']);
+Route::get('master/room-types', [MasterController::class, 'getRoomTypes']);
