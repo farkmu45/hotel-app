@@ -17,15 +17,23 @@ use Illuminate\Http\Request;
 
 class MasterController extends Controller
 {
-    public function getCustomers()
+    public function getCustomers(Request $request)
     {
-        $users = Customer::whereNotIn(
-            'id',
-            fn ($q) => $q->select('customer_id')
-                ->from('orders')
-                ->where('check_out', null)
-                ->orWhere('check_in', null)
-        )->get();
+
+        $inOrders = $request->query('in_orders', true);
+        $users = null;
+
+        if ($inOrders) {
+            $users = Customer::whereNotIn(
+                'id',
+                fn ($q) => $q->select('customer_id')
+                    ->from('orders')
+                    ->where('check_out', null)
+                    ->orWhere('check_in', null)
+            )->get();
+        } else {
+            $users = Customer::all();
+        }
 
         return new UserCollection($users);
     }
