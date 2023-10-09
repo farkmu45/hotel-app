@@ -107,7 +107,7 @@ class LaundryResource extends Resource
                     ->sortable()
                     ->suffix(' kg')
                     ->label('Berat'),
-                TextColumn::make('laundryType.price')
+                TextColumn::make('price')
                     ->sortable()
                     ->numeric(
                         decimalPlaces: 0,
