@@ -20,7 +20,7 @@ class MasterController extends Controller
         $users = null;
 
         if ($inOrders) {
-            $users = Customer::whereNotIn(
+            $users = Customer::whereIn(
                 'id',
                 fn ($q) => $q->select('customer_id')
                     ->from('orders')
