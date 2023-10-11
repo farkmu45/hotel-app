@@ -19,7 +19,7 @@ class DishOrderCollection extends ResourceCollection
                 'code' => $order->code,
                 'customer' => $order->customer->name,
                 'room' => $order->room_id,
-                'price' => $order->items->sum('price')
+                'price' => $order->items->sum('price'),
             ]
         )->toArray();
     }

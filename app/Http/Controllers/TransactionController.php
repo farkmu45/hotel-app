@@ -21,10 +21,8 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {
-    public function createLaundryOrder(CreateLaundryOrder $request)
+    public function checkCustomer($data)
     {
-        $data = $request->validated();
-
         $customerId = $data['customer_id'];
 
         $customer = Customer::where('id', $customerId)
@@ -36,9 +34,18 @@ class TransactionController extends Controller
                     ->whereNotNull('check_in')
             )->first();
 
-        if (!$customer) {
+        if (! $customer) {
             throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
         }
+
+        return $customer;
+    }
+
+    public function createLaundryOrder(CreateLaundryOrder $request)
+    {
+        $data = $request->validated();
+
+        $customer = $this->checkCustomer($data);
 
         $data['room_id'] = $customer->activeOrder()->room_id;
         $data['price'] = LaundryType::find($data['laundry_type_id'])->price * $data['weight'];
@@ -72,7 +79,7 @@ class TransactionController extends Controller
             )
             ->first();
 
-        if (!$room) {
+        if (! $room) {
             throw ValidationException::withMessages(['Tidak ada kamar yang tersedia untuk tipe kamar yang dipilih']);
         }
 
@@ -96,20 +103,7 @@ class TransactionController extends Controller
     {
         $data = $request->validated();
 
-        $customerId = $data['customer_id'];
-
-        $customer = Customer::where('id', $customerId)
-            ->whereIn(
-                'id',
-                fn ($q) => $q->select('customer_id')
-                    ->from('orders')
-                    ->where('check_out', null)
-                    ->whereNotNull('check_in')
-            )->first();
-
-        if (!$customer) {
-            throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
-        }
+        $customerId = $this->checkCustomer($data)->id;
 
         $order = DishOrder::create([
             'customer_id' => $customerId,
@@ -131,17 +125,17 @@ class TransactionController extends Controller
         return $order;
     }
 
-    public  function listLaundryOrder()
+    public function listLaundryOrder()
     {
         return new LaundryOrderCollection(Laundry::latest()->get());
     }
 
-    public  function listOrder()
+    public function listOrder()
     {
         return new OrderCollection(Order::latest()->get());
     }
 
-    public  function listDishOrder()
+    public function listDishOrder()
     {
         return new DishOrderCollection(DishOrder::latest()->get());
     }

@@ -19,7 +19,7 @@ class OrderCollection extends ResourceCollection
                 'code' => $order->code,
                 'customer' => $order->customer->name,
                 'type' => $order->room->roomType->name,
-                'price' => $order->price
+                'price' => $order->price,
             ]
         )->toArray();
     }

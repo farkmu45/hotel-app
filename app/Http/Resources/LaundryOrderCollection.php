@@ -20,7 +20,7 @@ class LaundryOrderCollection extends ResourceCollection
                 'customer' => $order->customer->name,
                 'type' => $order->laundryType->name,
                 'weight' => $order->weight,
-                'price' => $order->price
+                'price' => $order->price,
             ]
         )->toArray();
     }
