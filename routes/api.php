@@ -32,3 +32,4 @@ Route::post('transaction/dish-orders', [TransactionController::class, 'createDis
 
 Route::get('transaction/laundries', [TransactionController::class, 'listLaundryOrder']);
 Route::get('transaction/orders', [TransactionController::class, 'listOrder']);
+Route::get('transaction/dish-orders', [TransactionController::class, 'listDishOrder']);

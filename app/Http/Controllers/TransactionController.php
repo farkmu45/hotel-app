@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDishOrder;
 use App\Http\Requests\CreateLaundryOrder;
 use App\Http\Requests\CreateOrder;
+use App\Http\Resources\DishOrderCollection;
 use App\Http\Resources\LaundryOrderCollection;
 use App\Http\Resources\OrderCollection;
 use App\Models\Customer;
@@ -138,5 +139,10 @@ class TransactionController extends Controller
     public  static function listOrder()
     {
         return new OrderCollection(Order::all());
+    }
+
+    public  static function listDishOrder()
+    {
+        return new DishOrderCollection(DishOrder::all());
     }
 }
