@@ -21,7 +21,7 @@ use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {
-    public static function createLaundryOrder(CreateLaundryOrder $request)
+    public function createLaundryOrder(CreateLaundryOrder $request)
     {
         $data = $request->validated();
 
@@ -46,7 +46,7 @@ class TransactionController extends Controller
         return ['data' => Laundry::create($data)];
     }
 
-    public static function createOrder(CreateOrder $request)
+    public function createOrder(CreateOrder $request)
     {
         $data = $request->validated();
 
@@ -92,7 +92,7 @@ class TransactionController extends Controller
         return Order::create($data);
     }
 
-    public static function createDishOrder(CreateDishOrder $request)
+    public function createDishOrder(CreateDishOrder $request)
     {
         $data = $request->validated();
 
@@ -131,17 +131,17 @@ class TransactionController extends Controller
         return $order;
     }
 
-    public  static function listLaundryOrder()
+    public  function listLaundryOrder()
     {
         return new LaundryOrderCollection(Laundry::all());
     }
 
-    public  static function listOrder()
+    public  function listOrder()
     {
         return new OrderCollection(Order::all());
     }
 
-    public  static function listDishOrder()
+    public  function listDishOrder()
     {
         return new DishOrderCollection(DishOrder::all());
     }
