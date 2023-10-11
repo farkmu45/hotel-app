@@ -3,6 +3,7 @@
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MetricController;
 use App\Http\Controllers\TransactionController;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,5 @@ Route::get('master/room-types', [MasterController::class, 'getRoomTypes']);
 Route::post('transaction/laundry', [TransactionController::class, 'createLaundryOrder']);
 Route::post('transaction/orders', [TransactionController::class, 'createOrder']);
 Route::post('transaction/dish-orders', [TransactionController::class, 'createDishOrder']);
+
+Route::get('transaction/laundries', [TransactionController::class, 'listLaundryOrder']);

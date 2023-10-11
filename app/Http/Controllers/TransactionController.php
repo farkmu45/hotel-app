@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDishOrder;
 use App\Http\Requests\CreateLaundryOrder;
 use App\Http\Requests\CreateOrder;
+use App\Http\Resources\LaundryOrderCollection;
 use App\Models\Customer;
 use App\Models\Dish;
 use App\Models\DishOrder;
@@ -33,7 +34,7 @@ class TransactionController extends Controller
                     ->whereNotNull('check_in')
             )->first();
 
-        if (! $customer) {
+        if (!$customer) {
             throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
         }
 
@@ -69,7 +70,7 @@ class TransactionController extends Controller
             )
             ->first();
 
-        if (! $room) {
+        if (!$room) {
             throw ValidationException::withMessages(['Tidak ada kamar yang tersedia untuk tipe kamar yang dipilih']);
         }
 
@@ -104,7 +105,7 @@ class TransactionController extends Controller
                     ->whereNotNull('check_in')
             )->first();
 
-        if (! $customer) {
+        if (!$customer) {
             throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
         }
 
@@ -126,5 +127,10 @@ class TransactionController extends Controller
         }
 
         return $order;
+    }
+
+    public  static function listLaundryOrder()
+    {
+        return new LaundryOrderCollection(Laundry::all());
     }
 }
