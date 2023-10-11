@@ -28,3 +28,4 @@ Route::get('master/room-types', [MasterController::class, 'getRoomTypes']);
 
 Route::post('transaction/laundry', [TransactionController::class, 'createLaundryOrder']);
 Route::post('transaction/orders', [TransactionController::class, 'createOrder']);
+Route::post('transaction/dish-orders', [TransactionController::class, 'createDishOrder']);

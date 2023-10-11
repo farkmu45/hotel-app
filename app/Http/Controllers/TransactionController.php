@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateDishOrder;
 use App\Http\Requests\CreateLaundryOrder;
 use App\Http\Requests\CreateOrder;
 use App\Models\Customer;
+use App\Models\Dish;
+use App\Models\DishOrder;
+use App\Models\DishOrderItem;
 use App\Models\Laundry;
 use App\Models\LaundryType;
 use App\Models\Order;
@@ -84,5 +88,44 @@ class TransactionController extends Controller
         unset($data['room_type_id']);
 
         return Order::create($data);
+    }
+
+    public  static function createDishOrder(CreateDishOrder $request)
+    {
+        $data = $request->validated();
+
+        $customerId = $data['customer_id'];
+
+        $customer = Customer::where('id', $customerId)
+            ->whereIn(
+                'id',
+                fn ($q) => $q->select('customer_id')
+                    ->from('orders')
+                    ->where('check_out', null)
+                    ->whereNotNull('check_in')
+            )->first();
+
+        if (!$customer) {
+            throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
+        }
+
+        $order = DishOrder::create([
+            'customer_id' => $customerId,
+            'room_id' => Customer::find($customerId)->activeOrder()->room->id,
+        ]);
+
+        foreach ($data['order'] as $item) {
+            $dish = Dish::find($item['dish_id']);
+
+            DishOrderItem::create([
+                'dish_id' => $item['dish_id'],
+                'dish_order_id' => $order->id,
+                'qty' => $item['qty'],
+                'price_per_item' => $dish->price,
+                'price' => $dish->price * $item['qty']
+            ]);
+        }
+
+        return $order;
     }
 }
