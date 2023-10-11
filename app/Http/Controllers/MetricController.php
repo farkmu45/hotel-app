@@ -35,7 +35,7 @@ class MetricController extends Controller
             $occupiedRoom = $orders->count();
 
             $rate = $occupiedRoom > 0 ? ($occupiedRoom / $roomCount) * 100 : 0;
-            array_push($data, round($rate, 2));
+            array_push($data, ['date' => $date, 'value' => round($rate, 2)]);
         }
 
         return new MetricResource($data);
@@ -56,7 +56,7 @@ class MetricController extends Controller
             $occupiedRooms = $orders->count();
 
             $rate = $totalRevenue > 0 ? $totalRevenue / $occupiedRooms : 0;
-            array_push($data, round($rate, 2));
+            array_push($data, ['date' => $date, 'value' => round($rate, 2)]);
         }
 
         return new MetricResource($data);
@@ -79,7 +79,7 @@ class MetricController extends Controller
             $occupiedRooms = $orders->count();
 
             $rate = $totalRevenue > 0 ? $totalRevenue / ($roomCount - $occupiedRooms) : 0;
-            array_push($data, round($rate, 2));
+            array_push($data, ['date' => $date, 'value' => round($rate, 2)]);
         }
 
         return new MetricResource($data);
