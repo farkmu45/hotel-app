@@ -6,6 +6,7 @@ use App\Http\Requests\CreateDishOrder;
 use App\Http\Requests\CreateLaundryOrder;
 use App\Http\Requests\CreateOrder;
 use App\Http\Resources\LaundryOrderCollection;
+use App\Http\Resources\OrderCollection;
 use App\Models\Customer;
 use App\Models\Dish;
 use App\Models\DishOrder;
@@ -132,5 +133,10 @@ class TransactionController extends Controller
     public  static function listLaundryOrder()
     {
         return new LaundryOrderCollection(Laundry::all());
+    }
+
+    public  static function listOrder()
+    {
+        return new OrderCollection(Order::all());
     }
 }

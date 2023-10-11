@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class LaundryOrderCollection extends ResourceCollection
+class OrderCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,8 +18,7 @@ class LaundryOrderCollection extends ResourceCollection
             fn ($order) => [
                 'code' => $order->code,
                 'customer' => $order->customer->name,
-                'type' => $order->laundryType->name,
-                'weight' => $order->weight,
+                'type' => $order->room->roomType->name,
                 'price' => $order->price
             ]
         )->toArray();
