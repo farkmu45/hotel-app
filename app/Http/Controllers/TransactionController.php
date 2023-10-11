@@ -133,16 +133,16 @@ class TransactionController extends Controller
 
     public  function listLaundryOrder()
     {
-        return new LaundryOrderCollection(Laundry::all());
+        return new LaundryOrderCollection(Laundry::latest()->get());
     }
 
     public  function listOrder()
     {
-        return new OrderCollection(Order::all());
+        return new OrderCollection(Order::latest()->get());
     }
 
     public  function listDishOrder()
     {
-        return new DishOrderCollection(DishOrder::all());
+        return new DishOrderCollection(DishOrder::latest()->get());
     }
 }
