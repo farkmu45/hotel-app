@@ -14,7 +14,6 @@ use App\Models\LaundryType;
 use App\Models\Order;
 use App\Models\Room;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
@@ -34,7 +33,7 @@ class TransactionController extends Controller
                     ->whereNotNull('check_in')
             )->first();
 
-        if (!$customer) {
+        if (! $customer) {
             throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
         }
 
@@ -44,7 +43,7 @@ class TransactionController extends Controller
         return ['data' => Laundry::create($data)];
     }
 
-    public  static function createOrder(CreateOrder $request)
+    public static function createOrder(CreateOrder $request)
     {
         $data = $request->validated();
 
@@ -70,7 +69,7 @@ class TransactionController extends Controller
             )
             ->first();
 
-        if (!$room) {
+        if (! $room) {
             throw ValidationException::withMessages(['Tidak ada kamar yang tersedia untuk tipe kamar yang dipilih']);
         }
 
@@ -90,7 +89,7 @@ class TransactionController extends Controller
         return Order::create($data);
     }
 
-    public  static function createDishOrder(CreateDishOrder $request)
+    public static function createDishOrder(CreateDishOrder $request)
     {
         $data = $request->validated();
 
@@ -105,7 +104,7 @@ class TransactionController extends Controller
                     ->whereNotNull('check_in')
             )->first();
 
-        if (!$customer) {
+        if (! $customer) {
             throw ValidationException::withMessages(['Pelanggan ini belum memesan kamar']);
         }
 
@@ -122,7 +121,7 @@ class TransactionController extends Controller
                 'dish_order_id' => $order->id,
                 'qty' => $item['qty'],
                 'price_per_item' => $dish->price,
-                'price' => $dish->price * $item['qty']
+                'price' => $dish->price * $item['qty'],
             ]);
         }
 

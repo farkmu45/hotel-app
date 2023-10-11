@@ -17,7 +17,7 @@ class RoomTypeCollection extends ResourceCollection
         return $this->collection->transform(
             fn ($roomType) => [
                 'id' => $roomType->id,
-                'name' => $roomType->name
+                'name' => $roomType->name,
             ]
         )->toArray();
     }

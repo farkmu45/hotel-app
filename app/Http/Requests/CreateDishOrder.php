@@ -25,7 +25,7 @@ class CreateDishOrder extends FormRequest
             'customer_id' => 'required',
             'order' => 'required|array',
             'order.*.dish_id' => 'required|exists:dishes,id,deleted_at,NULL',
-            'order.*.qty' => 'required|gt:0|numeric'
+            'order.*.qty' => 'required|gt:0|numeric',
         ];
     }
 }

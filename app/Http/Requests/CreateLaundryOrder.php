@@ -24,7 +24,7 @@ class CreateLaundryOrder extends FormRequest
         return [
             'customer_id' => 'required|numeric',
             'laundry_type_id' => 'required|exists:laundry_types,id',
-            'weight' => 'required|numeric|min:0|max:100'
+            'weight' => 'required|numeric|min:0|max:100',
         ];
     }
 }

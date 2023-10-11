@@ -3,7 +3,6 @@
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\MetricController;
 use App\Http\Controllers\TransactionController;
-use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 /*
